@@ -1,0 +1,171 @@
+#You can create as many formats as you want. Keep in mind they must be ordered in order to work correctly.
+#The order goes from higher to lower priority. It means that if you have OP the first one is going to be used for you.
+Formats:
+  #This is the internal name. It doesn't matter at all, just don't use the same one.
+  #Use only lowercase words and include only dashes if necessary.
+  owners:
+    #If permission is none or is not set it will ignore permission and will always be available.
+    #If you want to set a join message for all non-ranked players create the format at the end of
+    #this list and give the permission to default group/rank.
+    Permission: "alonsojoin.format.owner"
+    #Sound sent when player joins with this format.
+    #Set to none to disable sound effect.
+    Sound: "ENDERDRAGON_GROWL"
+    Messages:
+      first-part:
+        #You can use PlaceholderAPI here
+        #You can use {NEWLINE} to move to the next line.
+        #REMEMBER YOU MUST ADD THE COLOR AFTER USING {NEWLINE} BECAUSE IT RESETS TO WHITE WHEN YOU CHANGE LINES.
+        Text: "%vault_prefix% %player_name%"
+        Hover:
+        - "&7%vault_prefix% %player_name%"
+        - "&7Balance: &a$%vault_eco_balance%"
+        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league%"
+        - "&7League points: &a%alonsoleagues_points%"
+        Click:
+          #Can be any ClickEvent.Action available FOR YOUR VERSION.
+          #Available typeS: "RUN_COMMAND", "OPEN_URL", "SUGGEST_COMMAND" and "COPY_TO_CLIPBOARD" (if available)
+          Type: "OPEN_URL"
+          #Value represents the value for the type selected. Can be for commands (requires slash), url, a command for suggestion or text to copy.
+          #You can use some placeholders here, available placeholders are:
+          # {PLAYER} replaced by player name
+          # {UUID} replaced by player uuid
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      #Example of text only.
+      second-part:
+        #You can use PlaceholderAPI here
+        #REMEMBER YOU MUST ADD THE COLOR AFTER USING {NEWLINE} BECAUSE IT RESETS TO WHITE WHEN YOU CHANGE LINES.
+        Text: "&4 has joined the server!"
+      #THE FOLLOWING PARTS ARE JUST EXAMPLES OF HOW TO USE DIFFERENT CLICK TYPES.
+      #REMEMBER: This is just an example. You can delete this part.
+      suggest-part:
+        Text: "&7 (Suggest)"
+        Hover:
+        - "&eClick to suggest a command!"
+        Click:
+          Type: "SUGGEST_COMMAND"
+          #If type is SUGGEST_COMMAND, enter the command that should be suggested in player text box.
+          Value: "/tell {PLAYER} Hello {PLAYER}, this is a test for 'SUGGEST_COMMAND' type!"
+      #REMEMBER: This is just an example. You can delete this part.
+      message-part:
+        Text: "&8 (Message)"
+        Hover:
+        - "&eClick to welcome %player_name%!"
+        Click:
+          Type: "RUN_COMMAND"
+          #If type is SUGGEST_COMMAND, enter the command that should be sent as the player.
+          #Remember you don't need to use slash here to be detected as message.
+          Value: "Welcome {PLAYER}, this is a test for 'RUN_COMMAND' type without slash!"
+      #REMEMBER: This is just an example. You can delete this part.
+      run-command-part:
+        Text: "&7 (Run)"
+        Hover:
+        - "&eClick to message %player_name%!"
+        Click:
+          Type: "RUN_COMMAND"
+          #If type is SUGGEST_COMMAND, enter the command that should be run by the player.
+          Value: "/tell {PLAYER} Welcome {PLAYER}, this is a test for 'RUN_COMMAND' type!"
+      #REMEMBER: This is just an example. You can delete this part.
+      copy-part:
+        Text: "&8 (Copy)"
+        Hover:
+        - "&eClick to copy a text! (Available only in newer versions)"
+        Click:
+          Type: "COPY_TO_CLIPBOARD"
+          #If type is COPY_TO_CLIPBOARD, enter the text that should be copied for player. Only in newer versions.
+          Value: "Hello! This is a test for 'COPY_TO_CLIPBOARD' type. You copied this text from {PLAYER} welcome message!"
+  staff:
+    Permission: "alonsojoin.format.staff"
+    Sound: "BLAZE_HIT"
+    Messages:
+      first-part:
+        Text: "%vault_prefix% %player_name%"
+        Hover:
+        - "&7%vault_prefix% &f%player_name%"
+        - "&7Balance: &a%vault_eco_balance%"
+        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league%"
+        - "&7League points: &a%alonsoleagues_points%"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      second-part:
+        Text: "&4 has joined the server!"
+  mvpplusplus:
+    Permission: "alonsojoin.format.mvpplusplus"
+    Sound: "EXP_ORB"
+    Messages:
+      first-part:
+        Text: "&b>&c>&a> "
+      second-part:
+        Text: "%vault_prefix% &6%player_name%"
+        Hover:
+        - "&7%vault_prefix% &6%player_name%"
+        - "&7Balance: &a%vault_eco_balance%"
+        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league%"
+        - "&7League points: &a%alonsoleagues_points%"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      third-part:
+        Text: "&6 has joined the server! &a<&c<&b<"
+  mvp:
+    Permission: "alonsojoin.format.mvp"
+    Sound: "EXP_ORB"
+    Messages:
+      first-part:
+        Text: "%vault_prefix% &b%player_name%"
+        Hover:
+        - "&7%vault_prefix% &b%player_name%"
+        - "&7Balance: &a%vault_eco_balance%"
+        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league%"
+        - "&7League points: &a%alonsoleagues_points%"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      third-part:
+        Text: "&6 has joined the server! &a<&c<&b<"
+  vip:
+    Permission: "alonsojoin.format.vip"
+    Sound: "EXP_ORB"
+    Messages:
+      first-part:
+        Text: "%vault_prefix% &a%player_name%"
+        Hover:
+        - "&7%vault_prefix% &a%player_name%"
+        - "&7Balance: &a%vault_eco_balance%"
+        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league%"
+        - "&7League points: &a%alonsoleagues_points%"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      second-part:
+        Text: "&6 has joined the server!"
+  #If you don't want normal players to have a join message simply delete this section.
+  #or don't give the permission to any player/group
+  nonranked:
+    Permission: "alonsojoin.format.default"
+    Messages:
+      first-part:
+        Text: "%vault_prefix% &7%player_name%"
+        Hover:
+        - "&7%vault_prefix% &7%player_name%"
+        - "&7Balance: &a%vault_eco_balance%"
+        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league%"
+        - "&7League points: &a%alonsoleagues_points%"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      second-part:
+        Text: "&7 has joined the server!"
