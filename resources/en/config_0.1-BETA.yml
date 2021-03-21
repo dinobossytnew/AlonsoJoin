@@ -1,0 +1,86 @@
+#                 _   _                     _     _
+#                /_\ | |___ _ _  ___ ___ _ | |___(_)_ _
+#               / _ \| / _ \ ' \(_-</ _ \ || / _ \ | ' \
+#              /_/ \_\_\___/_||_/__/\___/\__/\___/_|_||_|
+#                           by AlonsoAliaga
+#          https://www.spigotmc.org/resources/authors/281176/
+#              Support server: alonsoaliaga.com/discord
+#        Subscribe to my Youtube channel: alonsoaliaga.com/play
+#          Subscribe to my Twitch: alonsoaliaga.com/twitch
+#           Donate using Paypal: alonsoaliaga.com/donate
+Messages:
+  No-permission: "&cYou don't have permission to do this."
+  Reloaded: "&aSome messages and options have been reloaded. Others may require a restart!"
+  Invalid-player: "&cPlayer is not online!"
+  Help:
+    Admin:
+    - "&6 /alonsojoin test <player> &f- &eTest join message for a player for you."
+    - "&6 /alonsojoin broadcast <player> [delay] &f- &eTest join message for a player for everyone."
+    - "&6 /alonsojoin reload &f- &eReload configuration (Restart recommended)"
+    User: []
+  Test:
+    Not-available: "&cThis player doesn't have any join message format available."
+
+Permissions:
+  #Permission required to perform /alonsojoin command.
+  #Set to "none" to not require permission.
+  Main: "none" #Example: "alonsojoin.main"
+  Admin: "alonsojoin.admin"
+
+Options:
+  Debug: false
+  Command:
+    Aliases:
+    - "ajoin"
+  #This option simply removes the default "AlonsoAliaga joined the server." from spigot.
+  #It's really recommended to leave the enabled, unless you want to have two join messages.
+  Remove-default: true
+  #This is whitelist feature.
+  #If enable, the message for the player who joined will only be sent to all players in the worlds in this list.
+  #If disabled, message will be sent to all players in ALL WORLDS.
+  Whitelist:
+    Enabled: false
+    Worlds:
+    - "world"
+    - "lobby"
+  #Delay in ticks to send the message.
+  #This feature was added in case you have plugins that load placeholders for PlaceholderAPI too late.
+  #Time in ticks. 20 ticks = 1 second, 60 ticks = 3 seconds, 100 ticks = 5 seconds.
+  #It's highly recommended to use a delay of 3 seconds. (By default)
+  #Set to 0 or negative to disable delay.
+  Delay: 60
+  #This is a brand new feature that "adds compatibility" with vanished/staff-mode plugins
+  Exceptions:
+    #Enable this ONLY if you want this feature to work.
+    #Make sure you also edit, add or remove the values you don't need.
+    #Make sure you ONLY KEEP the values you need to not affect performance.
+    Enabled: false
+    #This is the permission required to be able to recognized as "staff".
+    #Only when players with THIS PERMISSION join the server the checks will be made.
+    #You can algo give this permission to youtuber if you have a disguise plugin.
+    Permission: "alonsojoin.staff"
+    Metadatas:
+    - "Vanished"
+    - "vanished"
+    Placeholders:
+      #Make sure you ONLY enable the ONES YOU NEED.
+      #If you don't have SuperVanish plugin, remove that line. Etc etc.
+      #If the vanish plugin you use is not listed below, add the placeholder including %
+      #and define the expected value so the player is recognized as vanished player.
+      "%supervanish_isvanished%": "true"
+      "%premiumvanish_isvanished%": "true"
+      "%stafffacilities_vanished%": "true"
+      "%protocolvanish_player_is_vanished%": "true"
+      "%essentials_vanished%": "yes"
+
+Updates:
+  #Auto update configuration? Enabling will delete comments.
+  Auto-update-configuration: true
+  #Check for updates? Recommended to keep it enabled.
+  Check-updates: true
+  #Notify updates when player with permission joins the server?
+  Notify-updates: true
+  #Permission required to receive update message.
+  Permission: "alonsojoin.update"
+  #Message to send when update is found.
+  Message: "&6[AlonsoJoin] &eA new update has been found! You are using version {CURRENT}. Download version {NEW} here &c{LINK}"
