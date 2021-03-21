@@ -3,7 +3,7 @@
 # AlonsoJoin
 This plugin announce your players and staff but also support vanish plugins.\
 \
-**Vanish support works with PlaceholderAPI, if vanish plugin doesn't have a placeholder for player status (in vanish or not) it will not work.**
+⚠️ **Vanish support works with PlaceholderAPI, if vanish plugin doesn't have a placeholder for player status (in vanish or not) it will not work.**
 ## Resources
 - [Spigot resource](https://www.spigotmc.org/resources/X/)
 - [Issue tracker](https://github.com/AlonsoAliaga/AlonsoJoin/issues)
