@@ -9,7 +9,7 @@ This plugin announce your players and staff but also support vanish plugins.\
 - [Issue tracker](https://github.com/AlonsoAliaga/AlonsoJoin/issues)
 - [Donate](https://paypal.me/AlonsoAliaga)
 - [bStats](https://bstats.org/plugin/bukkit/AlonsoJoin)
-- [DeveloperAPI](https://github.com/AlonsoAliaga/BetterSocial/wiki/AlonsoJoinAPI
+- [DeveloperAPI](https://github.com/AlonsoAliaga/BetterSocial/wiki/AlonsoJoinAPI)
 - [Support server](https://alonsoaliaga.com/discord)
 
 ## Plugin statistics
