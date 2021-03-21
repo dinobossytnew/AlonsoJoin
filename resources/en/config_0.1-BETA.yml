@@ -14,9 +14,9 @@ Messages:
   Invalid-player: "&cPlayer is not online!"
   Help:
     Admin:
-    - "&6 /alonsojoin test <player> &f- &eTest join message for a player for you."
-    - "&6 /alonsojoin broadcast <player> [delay] &f- &eTest join message for a player for everyone."
-    - "&6 /alonsojoin reload &f- &eReload configuration (Restart recommended)"
+    - "&5 /alonsojoin test <player> &f- &dTest join message for a player for you."
+    - "&5 /alonsojoin broadcast <player> [delay] &f- &dTest join message for a player for everyone."
+    - "&5 /alonsojoin reload &f- &dReload configuration (Restart recommended)"
     User: []
   Test:
     Not-available: "&cThis player doesn't have any join message format available."
