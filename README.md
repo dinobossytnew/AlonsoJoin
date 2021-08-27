@@ -5,11 +5,11 @@ This plugin announce your players and staff but also support vanish plugins.\
 \
 ⚠️ **Vanish support works with PlaceholderAPI, if vanish plugin doesn't have a placeholder for player status (in vanish or not) it will not work.**
 ## Resources
-- [Spigot resource](https://www.spigotmc.org/resources/X/)
+- [Spigot resource](https://alonsoaliaga.com/AlonsoJoin)
 - [Issue tracker](https://github.com/AlonsoAliaga/AlonsoJoin/issues)
 - [Donate](https://paypal.me/AlonsoAliaga)
 - [bStats](https://bstats.org/plugin/bukkit/AlonsoJoin)
-- [DeveloperAPI](https://github.com/AlonsoAliaga/BetterSocial/wiki/AlonsoJoinAPI)
+- [DeveloperAPI](https://github.com/AlonsoAliaga/AlonsoJoin/wiki/AlonsoJoinAPI)
 - [Support server](https://alonsoaliaga.com/discord)
 
 ## Plugin statistics
