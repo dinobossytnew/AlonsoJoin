@@ -4,6 +4,9 @@
 This plugin announce your players and staff but also support vanish plugins.\
 \
 ⚠️ **Vanish support works with PlaceholderAPI, if vanish plugin doesn't have a placeholder for player status (in vanish or not) it will not work.**
+
+### ⚠️ **This plugin requires [AlonsoLib](https://alonsoaliaga.com/AlonsoLib) installed.**
+### [AlonsoLib](https://alonsoaliaga.com/AlonsoLib) is only available on GitHub, that's why AlonsoJoin cannot be installed in Aternos.
 ## Resources
 - [Spigot resource](https://alonsoaliaga.com/AlonsoJoin)
 - [Issue tracker](https://github.com/AlonsoAliaga/AlonsoJoin/issues)
