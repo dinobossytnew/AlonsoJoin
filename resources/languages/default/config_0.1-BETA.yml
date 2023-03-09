@@ -1,34 +1,62 @@
-#                 _   _                     _     _
-#                /_\ | |___ _ _  ___ ___ _ | |___(_)_ _
-#               / _ \| / _ \ ' \(_-</ _ \ || / _ \ | ' \
-#              /_/ \_\_\___/_||_/__/\___/\__/\___/_|_||_|
-#                           by AlonsoAliaga
-#          https://www.spigotmc.org/resources/authors/281176/
-#              Support server: alonsoaliaga.com/discord
-#        Subscribe to my Youtube channel: alonsoaliaga.com/play
-#          Subscribe to my Twitch: alonsoaliaga.com/twitch
-#           Donate using Paypal: alonsoaliaga.com/donate
+#                 _   _                     _     _                           Our plugins: https://alonsoaliaga.com/plugins
+#                /_\ | |___ _ _  ___ ___ _ | |___(_)_ _                       Support server: https://alonsoaliaga.com/discord
+#               / _ \| / _ \ ' \(_-</ _ \ || / _ \ | ' \                      Youtube: https://alonsoaliaga.com/play
+#              /_/ \_\_\___/_||_/__/\___/\__/\___/_|_||_|                     Test server: plugins.alonsoaliaga.com
+#                           by AlonsoAliaga                                   Twitch: https://alonsoaliaga.com/twitch
+#        Considering donating? https://alonsoaliaga.com/donate                Thanks for downloading my plugin <3.
 Messages:
   No-permission: "&cYou don't have permission to do this."
   Reloaded: "&aSome messages and options have been reloaded. Others may require a restart!"
   Invalid-player: "&cPlayer is not online!"
+  Joined-in-silence: "&4✪ &eWelcome {PLAYER}, you just joined in silence. You won't be announced!"
   Help:
     Admin:
-    - "&5 /alonsojoin test <player> &f- &dTest join message for a player for you."
-    - "&5 /alonsojoin broadcast <player> [delay] &f- &dTest join message for a player for everyone."
+    - "&5 /alonsojoin testjoin <player> &f- &dTest join message for a player for you."
+    - "&5 /alonsojoin testquit <player> &f- &dTest join message for a player for you."
+    - "&5 /alonsojoin testhover <message> &f- &dTest a message in hover. (To test colors)"
+    - "&5 /alonsojoin testexceptions &f- &dTest exceptions. (To test vanish plugins)"
+    - "&5 /alonsojoin testaction <action> &f- &dTest an action. (Requires OP for some types)"
+    - "&5 /alonsojoin testformat <identifier> &f- &dTest a format."
+    - "&5 /alonsojoin broadcastjoin <player> [delay] &f- &dTest join message for a player for everyone."
+    - "&5 /alonsojoin broadcastquit <player> &f- &dTest join message for a player for everyone."
+    - "&5 /alonsojoin fakejoin <player> &f- &dBroadcast join message for everyone ignoring exceptions."
+    - "&5 /alonsojoin fakeleave <player> &f- &dBroadcast quit message for everyone ignoring exceptions."
     - "&5 /alonsojoin reload &f- &dReload configuration (Restart recommended)"
     User: []
+  Test-format:
+    Invalid: "&cProvided identifier is not valid."
+    Already-testing: "&cYou are already testing a format, wait some seconds.."
+    Testing-join: "&aTesting join '{IDENTIFIER}' for '{PLAYER}'.."
+    Testing-quit-delay: "&aTesting quit '{IDENTIFIER}' for '{PLAYER}' in 3 seconds.."
+    Testing-quit: "&aTesting quit '{IDENTIFIER}' for '{PLAYER}'.."
   Test:
     Not-available: "&cThis player doesn't have any join message format available."
+    Running-join: "&aRunning '{IDENTIFIER}' join format for {PLAYER}."
+    Running-quit: "&aRunning '{IDENTIFIER}' quit format for {PLAYER}."
+  Broadcast:
+    Not-available: "&cThis player doesn't have any quit message format available."
+    Running-join: "&aRunning '{IDENTIFIER}' join broadcast for {PLAYER}."
+    Running-quit: "&aRunning '{IDENTIFIER}' quit broadcast for {PLAYER}."
+  Test-exceptions:
+    You-are-vanished: "&aYou are in vanish! You won't be announced on join."
+    You-are-not-vanished: "&cYou are not in vanish! You will be announced on join."
+    Target-is-vanished: "&aTarget is in vanish! Target won't be announced on join."
+    Target-is-not-vanished: "&aTarget is not in vanish! Target will be announced on join."
 
 Permissions:
   #Permission required to perform /alonsojoin command.
   #Set to "none" to not require permission.
   Main: "none" #Example: "alonsojoin.main"
+  #Permissions below cannot be "none"
   Admin: "alonsojoin.admin"
+  Fake-join: "alonsojoin.fake-join"
+  Fake-leave: "alonsojoin.fake-leave"
 
 Options:
+  #Enable only if developer asks you to do it. It will spam console/chat with messages.
   Debug: false
+  #Shouldn't be necessary. Leave it as false.
+  Async-mode: false
   Command:
     Aliases:
     - "ajoin"
@@ -54,7 +82,11 @@ Options:
     #Enable this ONLY if you want this feature to work.
     #Make sure you also edit, add or remove the values you don't need.
     #Make sure you ONLY KEEP the values you need to not affect performance.
-    Enabled: false
+    Enabled: true
+    #Notify the player who just joined that he wasn't announced because of vanish?
+    #If "true" player will receive a message like "You joined on vanish and won't be announced!
+    #If "false" player won't receive a message!
+    Notify-player: true
     #This is the permission required to be able to recognized as "staff".
     #Only when players with THIS PERMISSION join the server the checks will be made.
     #You can algo give this permission to youtuber if you have a disguise plugin.
@@ -64,7 +96,7 @@ Options:
     - "vanished"
     Placeholders:
       #Make sure you ONLY enable the ONES YOU NEED.
-      #If you don't have SuperVanish plugin, remove that line. Etc etc.
+      #If you don't have SuperVanish plugin, REMOVE THAT LINE line. DON'T SIMPLY CHANGE TO "false". REMOVE IT!!!!!!!!!!!
       #If the vanish plugin you use is not listed below, add the placeholder including %
       #and define the expected value so the player is recognized as vanished player.
       "%supervanish_isvanished%": "true"
@@ -72,6 +104,23 @@ Options:
       "%stafffacilities_vanished%": "true"
       "%protocolvanish_player_is_vanished%": "true"
       "%essentials_vanished%": "yes"
+    Hooks:
+      #Hooks with AuthMe plugin to announce only when player has successfully logged in.
+      AuthMe:
+        Enabled: true
+        #If enabled, using /logout and /login will NOT spam connection message.
+        #This adds a metadata to the player so CONNECTING again is always required to send the message.
+        Prevent-spam: true
+    #Allow players to ignore damage from Fireworks. If enabled players will RECEIVE fireworks damage.
+    #Keep this disabled.
+    Firework-damage: false
+  Colors:
+    #This is an attempt to make hex color look as close as possible to minecraft native colors for 1.8 - 1.15 players.
+    Fix: true
+  Placeholders:
+    #This is ONLY USED FOR %alonsojoin_restorehex_ANOTHERPLACECHOLDER%
+    #Do NOT modify if you don't know what it does.
+    Hex-format: "&#{COLOR}"
 
 Updates:
   #Auto update configuration? Enabling will delete comments.
@@ -83,4 +132,4 @@ Updates:
   #Permission required to receive update message.
   Permission: "alonsojoin.update"
   #Message to send when update is found.
-  Message: "&6[AlonsoJoin] &eA new update has been found! You are using version {CURRENT}. Download version {NEW} here &c{LINK}"
+  Message: "&5[AlonsoJoin] &eA new update has been found! You are using version {CURRENT}. Download version {NEW} here &c{LINK}"
