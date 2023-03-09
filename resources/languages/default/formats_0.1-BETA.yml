@@ -10,8 +10,14 @@ Formats:
     Permission: "alonsojoin.format.owner"
     #Sound sent when player joins with this format.
     #Set to none to disable sound effect.
-    Sound: "ENDERDRAGON_GROWL"
-    Messages:
+    Sounds:
+      Join: "ENDERDRAGON_GROWL"
+      Quit: "ENDERDRAGON_GROWL"
+    #If enabled plugin will CREATE a message FOR EACH receiver so you can use relational placeholders. For example, factions relational placeholders.
+    #I STRONGLY RECOMMEND TO KEEP THIS DISABLED! As it might take unnecessary resources by creating a new component for each single plugin.
+    #I don't recommend you to use relational placeholders here. However it's up to you, I CANNOT help with "performance" issues related to this option.
+    Relational: false
+    Join-messages:
       first-part:
         #You can use PlaceholderAPI here
         #You can use {NEWLINE} to move to the next line.
@@ -19,11 +25,11 @@ Formats:
         Text: "%vault_prefix% %player_name%"
         Hover:
         - "&7%vault_prefix% %player_name%"
-        - "&7Balance: &a$%vault_eco_balance%"
-        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
         - "&7Experience: &f%alonsolevels_progress_format%"
-        - "&7League: &f%alonsoleagues_league%"
+        - "&7League: &f%alonsoleagues_league_display%"
         - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
         Click:
           #Can be any ClickEvent.Action available FOR YOUR VERSION.
           #Available typeS: "RUN_COMMAND", "OPEN_URL", "SUGGEST_COMMAND" and "COPY_TO_CLIPBOARD" (if available)
@@ -40,25 +46,6 @@ Formats:
         Text: "&4 has joined the server!"
       #THE FOLLOWING PARTS ARE JUST EXAMPLES OF HOW TO USE DIFFERENT CLICK TYPES.
       #REMEMBER: This is just an example. You can delete this part.
-      suggest-part:
-        Text: "&7 (Suggest)"
-        Hover:
-        - "&eClick to suggest a command!"
-        Click:
-          Type: "SUGGEST_COMMAND"
-          #If type is SUGGEST_COMMAND, enter the command that should be suggested in player text box.
-          Value: "/tell {PLAYER} Hello {PLAYER}, this is a test for 'SUGGEST_COMMAND' type!"
-      #REMEMBER: This is just an example. You can delete this part.
-      message-part:
-        Text: "&8 (Message)"
-        Hover:
-        - "&eClick to welcome %player_name%!"
-        Click:
-          Type: "RUN_COMMAND"
-          #If type is SUGGEST_COMMAND, enter the command that should be sent as the player.
-          #Remember you don't need to use slash here to be detected as message.
-          Value: "Welcome {PLAYER}, this is a test for 'RUN_COMMAND' type without slash!"
-      #REMEMBER: This is just an example. You can delete this part.
       run-command-part:
         Text: "&7 (Run)"
         Hover:
@@ -68,104 +55,260 @@ Formats:
           #If type is SUGGEST_COMMAND, enter the command that should be run by the player.
           Value: "/tell {PLAYER} Welcome {PLAYER}, this is a test for 'RUN_COMMAND' type!"
       #REMEMBER: This is just an example. You can delete this part.
+      suggest-part:
+        Text: "&8 (Suggest)"
+        Hover:
+        - "&eClick to suggest a command!"
+        Click:
+          Type: "SUGGEST_COMMAND"
+          #If type is SUGGEST_COMMAND, enter the command that should be suggested in player text box.
+          Value: "/tell {PLAYER} Hello {PLAYER}, this is a test for 'SUGGEST_COMMAND' type!"
+      #REMEMBER: This is just an example. You can delete this part.
+      chat-part:
+        Text: "&7 (Chat)"
+        Hover:
+        - "&eClick to welcome %player_name%!"
+        Click:
+          Type: "CHAT"
+          #If type is CHAT, enter the message that should be sent as the player.
+          Value: "Welcome {PLAYER}, this is a test for 'CHAT' type!"
+      #REMEMBER: This is just an example. You can delete this part.
+      suggest-chat-part:
+        Text: "&8 (Suggest message)"
+        Hover:
+        - "&eClick to suggest a message!"
+        Click:
+          Type: "SUGGEST_CHAT"
+          #If type is CHAT, enter the message that should be sent as the player.
+          Value: "This is a test for 'SUGGEST_CHAT' type!"
+      #REMEMBER: This is just an example. You can delete this part.
       copy-part:
-        Text: "&8 (Copy)"
+        Text: "&7 (Copy)"
         Hover:
         - "&eClick to copy a text! (Available only in newer versions)"
         Click:
           Type: "COPY_TO_CLIPBOARD"
           #If type is COPY_TO_CLIPBOARD, enter the text that should be copied for player. Only in newer versions.
           Value: "Hello! This is a test for 'COPY_TO_CLIPBOARD' type. You copied this text from {PLAYER} welcome message!"
-  staff:
-    Permission: "alonsojoin.format.staff"
-    Sound: "BLAZE_HIT"
-    Messages:
+    #REMEMBER THIS IS SENT ON QUIT. PLACEHOLDERS MIGHT NOT BE AVAILABLE HERE, DEPENDS ON OTHER PLUGINS.
+    #Recommended not to use any placeholder from PlaceholderAPI.
+    Quit-messages:
       first-part:
         Text: "%vault_prefix% %player_name%"
         Hover:
-        - "&7%vault_prefix% &f%player_name%"
-        - "&7Balance: &a%vault_eco_balance%"
-        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
         - "&7Experience: &f%alonsolevels_progress_format%"
-        - "&7League: &f%alonsoleagues_league%"
+        - "&7League: &f%alonsoleagues_league_display%"
         - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      second-part:
+        Text: "&4 has left the server!"
+    Actions:
+      #PlaceholderAPI is available here for the player that is joining. ONLY ON JOIN.
+      #For more information about command actions/modifiers visit https://alonsoaliaga.com/AlonsoJoin/command-modifiers
+      Join:
+        - "[FIRST_JOIN][MESSAGE_BROADCAST]&6{PLAYER} joined the server for the first time!"
+        - "[FIRST_JOIN][TITLE]&6Welcome {PLAYER}!<SEPARATOR>&eIt's your first time!"
+        - "[FIRST_JOIN][ACTION_BAR]&aYou can also send an action bar! &7(You are a new player)"
+        - "[KNOWN_PLAYER][MESSAGE]&6{PLAYER} joined the server, but it's not your first time!"
+        - "[KNOWN_PLAYER][TITLE]&6Welcome {PLAYER}!<SEPARATOR>&eIt's NOT your first time here!"
+        - "[KNOWN_PLAYER][ACTION_BAR]&aYou can also send an action bar with messages!"
+        - "[MESSAGE]&7Hello {PLAYER}, you are using 'owners' format! Only you can read this message ^^"
+        - "[FIREWORK]CREEPER:RED:BLACK:true:true|STAR:YELLOW:ORANGE:true:true|power=1|delay=5"
+        - '[JSON]["",{"text":"%vault_prefix% %player_name%","clickEvent":{"action":"open_url","value":"https://alonsoaliaga.com/discord"},"hoverEvent":{"action":"show_text","contents":"§eClick to join our Discord server!"}},{"text":" joined the server! This is ","color":"dark_red"},{"text":"JSON","color":"dark_red","clickEvent":{"action":"open_url","value":"https://alonsoaliaga.com/AlonsoJoin"},"hoverEvent":{"action":"show_text","contents":"§eClick for more information!"}},{"text":"!","color":"dark_red"}]'
+        - "[BOOK]defaultbook"
+      #REMEMBER THIS IS RUN ON QUIT. PLACEHOLDERS MIGHT NOT BE AVAILABLE HERE, DEPENDS ON OTHER PLUGINS.
+      #Recommended not to use any placeholder from PlaceholderAPI.
+      #For more information about command actions/modifiers visit https://alonsoaliaga.com/AlonsoJoin/command-modifiers
+      Quit:
+      - "[FIRST_JOIN][MESSAGE_BROADCAST]&6{PLAYER} left the server after his first time on the server!"
+  staff:
+    Permission: "alonsojoin.format.staff"
+    Sounds:
+      Join: "BLAZE_HIT"
+      Quit: "BLAZE_HIT"
+    Relational: false
+    Join-messages:
+      first-part:
+        Text: "%vault_prefix% %player_name%"
+        Hover:
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league_display%"
+        - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
         Click:
           Type: "OPEN_URL"
           Value: "https://es.namemc.com/profile/{PLAYER}"
       second-part:
         Text: "&4 has joined the server!"
+    Quit-messages:
+      first-part:
+        Text: "%vault_prefix% %player_name%"
+        Hover:
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league_display%"
+        - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      second-part:
+        Text: "&4 has left the server!"
+    Actions:
+      Join:
+      - "[MESSAGE]&7Hello {PLAYER}, you are using 'staff' format! Only you can read this message ^^"
+      Quit: []
   mvpplusplus:
     Permission: "alonsojoin.format.mvpplusplus"
-    Sound: "EXP_ORB"
-    Messages:
+    Sounds:
+      Join: "EXP_ORB"
+      Quit: "EXP_ORB"
+    Relational: false
+    Join-messages:
       first-part:
         Text: "&b>&c>&a> "
       second-part:
         Text: "%vault_prefix% &6%player_name%"
         Hover:
-        - "&7%vault_prefix% &6%player_name%"
-        - "&7Balance: &a%vault_eco_balance%"
-        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
         - "&7Experience: &f%alonsolevels_progress_format%"
-        - "&7League: &f%alonsoleagues_league%"
+        - "&7League: &f%alonsoleagues_league_display%"
         - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
         Click:
           Type: "OPEN_URL"
           Value: "https://es.namemc.com/profile/{PLAYER}"
       third-part:
         Text: "&6 has joined the server! &a<&c<&b<"
+    Quit-messages:
+      first-part:
+        Text: "%vault_prefix% %player_name%"
+        Hover:
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league_display%"
+        - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      second-part:
+        Text: "&6 has left the server!"
+    Actions:
+      Join:
+      - "[MESSAGE]&7Hello {PLAYER}, you are using 'mvpplusplus' format! Only you can read this message ^^"
+      Quit: []
   mvp:
     Permission: "alonsojoin.format.mvp"
-    Sound: "EXP_ORB"
-    Messages:
+    Sounds:
+      Join: "EXP_ORB"
+      Quit: "EXP_ORB"
+    Relational: false
+    Join-messages:
       first-part:
         Text: "%vault_prefix% &b%player_name%"
         Hover:
-        - "&7%vault_prefix% &b%player_name%"
-        - "&7Balance: &a%vault_eco_balance%"
-        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
         - "&7Experience: &f%alonsolevels_progress_format%"
-        - "&7League: &f%alonsoleagues_league%"
+        - "&7League: &f%alonsoleagues_league_display%"
         - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
         Click:
           Type: "OPEN_URL"
           Value: "https://es.namemc.com/profile/{PLAYER}"
       third-part:
         Text: "&6 has joined the server! &a<&c<&b<"
+    Quit-messages:
+      first-part:
+        Text: "%vault_prefix% &b%player_name%"
+        Hover:
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league_display%"
+        - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      second-part:
+        Text: "&6 has left the server!"
+    Actions:
+      Join:
+      - "[MESSAGE]&7Hello {PLAYER}, you are using 'mvp' format! Only you can read this message ^^"
+      Quit: []
   vip:
     Permission: "alonsojoin.format.vip"
-    Sound: "EXP_ORB"
-    Messages:
+    Sounds:
+      Join: "EXP_ORB"
+      Quit: "EXP_ORB"
+    Relational: false
+    Join-messages:
       first-part:
         Text: "%vault_prefix% &a%player_name%"
         Hover:
-        - "&7%vault_prefix% &a%player_name%"
-        - "&7Balance: &a%vault_eco_balance%"
-        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
         - "&7Experience: &f%alonsolevels_progress_format%"
-        - "&7League: &f%alonsoleagues_league%"
+        - "&7League: &f%alonsoleagues_league_display%"
         - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
         Click:
           Type: "OPEN_URL"
           Value: "https://es.namemc.com/profile/{PLAYER}"
       second-part:
         Text: "&6 has joined the server!"
+    Quit-messages:
+      first-part:
+        Text: "%vault_prefix% &a%player_name%"
+        Hover:
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
+        - "&7Experience: &f%alonsolevels_progress_format%"
+        - "&7League: &f%alonsoleagues_league_display%"
+        - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
+        Click:
+          Type: "OPEN_URL"
+          Value: "https://es.namemc.com/profile/{PLAYER}"
+      second-part:
+        Text: "&6 has left the server!"
+    Actions:
+      Join:
+      - "[MESSAGE]&7Hello {PLAYER}, you are using 'vip' format! Only you can read this message ^^"
+      Quit: []
   #If you don't want normal players to have a join message simply delete this section.
   #or don't give the permission to any player/group
   nonranked:
-    Permission: "alonsojoin.format.default"
-    Messages:
+    Permission: "none" #Set to "none" to not require permission. If so, it will available for everyone.
+    Relational: false
+    Join-messages:
       first-part:
         Text: "%vault_prefix% &7%player_name%"
         Hover:
-        - "&7%vault_prefix% &7%player_name%"
-        - "&7Balance: &a%vault_eco_balance%"
-        - "&7Level: &f%alonsolevels_level_format%"
+        - "&7%vault_prefix% %player_name%"
+        - "&7Level: &f%alonsolevels_colored_level_format%"
         - "&7Experience: &f%alonsolevels_progress_format%"
-        - "&7League: &f%alonsoleagues_league%"
+        - "&7League: &f%alonsoleagues_league_display%"
         - "&7League points: &a%alonsoleagues_points%"
+        - "&7Balance: &a%vault_eco_balance% ⛃"
         Click:
           Type: "OPEN_URL"
           Value: "https://es.namemc.com/profile/{PLAYER}"
       second-part:
         Text: "&7 has joined the server!"
+    Actions:
+      Join:
+      - "[MESSAGE]&7Hello {PLAYER}, you are using 'nonranked' format! Only you can read this message ^^"
+      Quit: []
